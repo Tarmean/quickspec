@@ -14,13 +14,6 @@ import Control.Monad.IO.Class
 import Control.Monad.Trans.Class
 
 
--- | For types which have a notion of arity.
-class Arity f where
-  -- | Measure the arity.
-  arity :: f -> Int
-
-instance (Labelled f, Arity f) => Arity (Fun f) where
-  arity = arity . fun_value
 
 data Tagged fun =
     Func fun

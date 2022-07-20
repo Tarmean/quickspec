@@ -9,6 +9,15 @@ import Control.Monad.Trans.Class
 import Control.Monad.IO.Class
 import Control.Monad.Trans.State.Strict
 import Control.Monad.Trans.Reader
+import Twee.Base (Labelled, Fun, fun_value)
+
+-- | For types which have a notion of arity.
+class Arity f where
+  -- | Measure the arity.
+  arity :: f -> Int
+
+instance (Labelled f, Arity f) => Arity (Fun f) where
+  arity = arity . fun_value
 
 class Monad m => MonadPruner term norm m | m -> term norm where
   normaliser :: m (term -> norm)
